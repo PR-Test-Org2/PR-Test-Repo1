@@ -22,8 +22,6 @@ import javax.servlet.http.HttpServletResponse;
 public class DiffFunctionsCondionalParamOrAlwaysTrue extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	private static boolean isAdmin;
-
 	private static boolean alwaysTrue = true;
 
 
@@ -35,13 +33,13 @@ public class DiffFunctionsCondionalParamOrAlwaysTrue extends HttpServlet {
 			throws ServletException, IOException {
 
 		String paramValue = request.getParameter("evilParam");
-		isAdmin = Boolean.parseBoolean(request.getParameter("isAdmin"));
+		boolean isAdmin = Boolean.parseBoolean(request.getParameter("isAdmin"));
 
-		goToSQL(paramValue);
+		goToSQL(paramValue, isAdmin);
 
 	}
 
-	private void goToSQL(String param) {
+	private void goToSQL(String param, boolean isAdmin) {
 
 		
 		if (alwaysTrue || isAdmin) {
