@@ -3,6 +3,7 @@ package com.synopsys.reachability;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -43,9 +44,10 @@ public class DifferentFunctionsEscaperAfter extends HttpServlet {
 
 			Connection conn = DriverManager.getConnection("jdbc:mysql://local/", "userName", "password");
 
-			Statement st = conn.createStatement();
+			PreparedStatement st = conn.prepareStatement("SELECT * FROM  User where userId=?");
+			st.setString(1, param);
 
-			ResultSet res = st.executeQuery("SELECT * FROM  User where userId='" + param + "'");
+			ResultSet res = st.executeQuery();
 			res.close();
 			
 			param = StringEscapeUtils.escapeSql(param);
